@@ -8,5 +8,17 @@
 .inner {
     height: 100%;
     width: var(--default-layout-width);
-    background-color: antiquewhite;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.logo {
+}
+.search {
+}
+.clear {
+}
+.loading {
+}
+.search-btn {
 }
