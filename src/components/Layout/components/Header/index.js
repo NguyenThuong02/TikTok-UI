@@ -1,7 +1,13 @@
 import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleXmark, faSpinner, faMagnifyingGlass, faSignIn } from '@fortawesome/free-solid-svg-icons';
+import {
+    faCircleXmark,
+    faSpinner,
+    faMagnifyingGlass,
+    faSignIn,
+    faEllipsisVertical,
+} from '@fortawesome/free-solid-svg-icons';
 import Tippy from '@tippyjs/react/headless';
 
 import Button from '~/components/Button';
@@ -59,6 +65,26 @@ function Header() {
                         Login
                     </Button>
                     {/* <button>Hello</button> */}
+
+                    <Tippy
+                        interactive
+                        placement="bottom-end"
+                        render={(attrs) => (
+                            <div className={cx('menu-items')} tabIndex="-1" {...attrs}>
+                                <PopperWrapper>
+                                    <h4 className={cx('search-title')}>Accounts</h4>
+                                    <AccountItem />
+                                    <AccountItem />
+                                    <AccountItem />
+                                    <AccountItem />
+                                </PopperWrapper>
+                            </div>
+                        )}
+                    >
+                        <button className={cx('more-btn')}>
+                            <FontAwesomeIcon icon={faEllipsisVertical}></FontAwesomeIcon>
+                        </button>
+                    </Tippy>
                 </div>
             </div>
         </header>
