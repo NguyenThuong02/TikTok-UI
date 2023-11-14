@@ -20,6 +20,7 @@ import styles from './Header.module.scss';
 import images from '~/assets/images';
 import AccountItem from '~/components/AccountItem';
 import Menu from '~/components/Popper/Menu';
+import Img from '~/img/Ảnh màn hình 2023-11-07 lúc 18.46.05.png';
 
 const cx = classNames.bind(styles);
 
@@ -81,7 +82,7 @@ function Header() {
         }
     };
 
-    const currentUser = false;
+    const currentUser = true;
 
     return (
         <header className={cx('wrapper')}>
@@ -116,10 +117,10 @@ function Header() {
                     </div>
                 </Tippy>
 
-                <div className={cx('action')}>
+                <div className={cx('actions')}>
                     {currentUser ? (
                         <>
-                            <button>
+                            <button className={cx('action-btn')}>
                                 <FontAwesomeIcon icon={faCloudUpload}></FontAwesomeIcon>
                             </button>
                         </>
@@ -129,14 +130,17 @@ function Header() {
                             <Button primary leftIcon={<FontAwesomeIcon icon={faSignIn}></FontAwesomeIcon>}>
                                 Login
                             </Button>
-
-                            <Menu items={MENU_ITEMS} onChange={handleMenuChange}>
-                                <button className={cx('more-btn')}>
-                                    <FontAwesomeIcon icon={faEllipsisVertical}></FontAwesomeIcon>
-                                </button>
-                            </Menu>
                         </>
                     )}
+                    <Menu items={MENU_ITEMS} onChange={handleMenuChange}>
+                        {currentUser ? (
+                            <img className={cx('user-avatar')} src={Img} alt="Nguyen Van A"></img>
+                        ) : (
+                            <button className={cx('more-btn')}>
+                                <FontAwesomeIcon icon={faEllipsisVertical}></FontAwesomeIcon>
+                            </button>
+                        )}
+                    </Menu>
                 </div>
             </div>
         </header>
