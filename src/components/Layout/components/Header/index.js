@@ -10,6 +10,7 @@ import {
     faEarthAsia,
     faCircleQuestion,
     faKeyboard,
+    faCloudUpload,
 } from '@fortawesome/free-solid-svg-icons';
 import Tippy from '@tippyjs/react/headless';
 
@@ -80,6 +81,8 @@ function Header() {
         }
     };
 
+    const currentUser = false;
+
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
@@ -112,18 +115,28 @@ function Header() {
                         </button>
                     </div>
                 </Tippy>
-                <div className={cx('action')}>
-                    <Button text>Upload</Button>
-                    <Button primary leftIcon={<FontAwesomeIcon icon={faSignIn}></FontAwesomeIcon>}>
-                        Login
-                    </Button>
-                    {/* <button>Hello</button> */}
 
-                    <Menu items={MENU_ITEMS} onChange={handleMenuChange}>
-                        <button className={cx('more-btn')}>
-                            <FontAwesomeIcon icon={faEllipsisVertical}></FontAwesomeIcon>
-                        </button>
-                    </Menu>
+                <div className={cx('action')}>
+                    {currentUser ? (
+                        <>
+                            <button>
+                                <FontAwesomeIcon icon={faCloudUpload}></FontAwesomeIcon>
+                            </button>
+                        </>
+                    ) : (
+                        <>
+                            <Button text>Upload</Button>
+                            <Button primary leftIcon={<FontAwesomeIcon icon={faSignIn}></FontAwesomeIcon>}>
+                                Login
+                            </Button>
+
+                            <Menu items={MENU_ITEMS} onChange={handleMenuChange}>
+                                <button className={cx('more-btn')}>
+                                    <FontAwesomeIcon icon={faEllipsisVertical}></FontAwesomeIcon>
+                                </button>
+                            </Menu>
+                        </>
+                    )}
                 </div>
             </div>
         </header>
