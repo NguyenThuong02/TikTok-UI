@@ -26,7 +26,7 @@ import styles from './Header.module.scss';
 import images from '~/assets/images';
 import AccountItem from '~/components/AccountItem';
 import Menu from '~/components/Popper/Menu';
-import Img from '~/img/Ảnh màn hình 2023-11-07 lúc 18.46.05.png';
+import Image from '~/components/Image';
 
 const cx = classNames.bind(styles);
 
@@ -167,7 +167,14 @@ function Header() {
                     )}
                     <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
                         {currentUser ? (
-                            <img className={cx('user-avatar')} src={Img} alt="Nguyen Van A"></img>
+                            <Image
+                                className={cx('user-avatar')}
+                                // Nếu link ảnh này lỗi thì sẽ chuyển sang file ảnh của Image/index.js
+                                src={
+                                    'https://p16-sign-va.tiktokcdn.com/tos-maliva-avt-0068/02db86f3d792815b7aa187b71ed700d4~c5_100x100.jpeg?x-expires=1700236800&x-signature=1WdPQ5Ekmv59zXDEdp8ulscNX4A%3'
+                                }
+                                alt="Nguyen Van A"
+                            />
                         ) : (
                             <button className={cx('more-btn')}>
                                 <FontAwesomeIcon icon={faEllipsisVertical}></FontAwesomeIcon>
