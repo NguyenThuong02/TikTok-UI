@@ -81,6 +81,9 @@
     display: none;
 }
 .search-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: var(--search-button-width);
     height: 100%;
     color: rgba(22, 24, 35, 0.34);
@@ -109,11 +112,27 @@
 }
 
 .action-btn {
+    position: relative;
+    display: flex;
     font-size: 2.2rem;
     color: #161823;
     background-color: transparent;
-    padding: 4px 12px;
+    padding: 4px 10px;
     cursor: pointer;
+}
+
+.badge {
+    position: absolute;
+    top: -5px;
+    right: -4px;
+    padding: 0 6px;
+    height: 2rem;
+    line-height: 2rem;
+    border-radius: 10px;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #fff;
+    background-color: var(--primary);
 }
 
 .user-avatar {
@@ -121,6 +140,6 @@
     height: 32px;
     object-fit: cover;
     border-radius: 50%;
-    margin-left: 12px;
+    margin-left: 14px;
     cursor: pointer;
 }
