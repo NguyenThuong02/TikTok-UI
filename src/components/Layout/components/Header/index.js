@@ -11,8 +11,14 @@ import {
     faCircleQuestion,
     faKeyboard,
     faCloudUpload,
+    faUser,
+    faCoins,
+    faGear,
+    faSignOut,
 } from '@fortawesome/free-solid-svg-icons';
-import Tippy from '@tippyjs/react/headless';
+import Tippy from '@tippyjs/react';
+import HeadlessTippy from '@tippyjs/react/headless';
+import 'tippy.js/dist/tippy.css';
 
 import Button from '~/components/Button';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
@@ -68,6 +74,8 @@ const MENU_ITEMS = [
 function Header() {
     const [searchResult, setSearchResult] = useState([]);
 
+    const currentUser = true;
+
     useEffect(() => {
         setTimeout(() => {
             setSearchResult([]);
@@ -82,7 +90,30 @@ function Header() {
         }
     };
 
-    const currentUser = true;
+    const userMenu = [
+        {
+            icon: <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>,
+            title: 'View profile',
+            to: '/@hoaa',
+        },
+        {
+            icon: <FontAwesomeIcon icon={faCoins}></FontAwesomeIcon>,
+            title: 'Get coins',
+            to: '/coin',
+        },
+        {
+            icon: <FontAwesomeIcon icon={faGear}></FontAwesomeIcon>,
+            title: 'Setting',
+            to: '/setting',
+        },
+        ...MENU_ITEMS,
+        {
+            icon: <FontAwesomeIcon icon={faSignOut}></FontAwesomeIcon>,
+            title: 'Log out',
+            to: '/logout',
+            separate: true, //Giá trị để làm class ở Menuitem (làm phần gạch trên đầu)
+        },
+    ];
 
     return (
         <header className={cx('wrapper')}>
@@ -90,7 +121,7 @@ function Header() {
                 <div className={cx('logo')}>
                     <img src={images.logo} alt="TikTok" />
                 </div>
-                <Tippy
+                <HeadlessTippy
                     interactive
                     visible={searchResult.length > 0}
                     render={(attrs) => (
@@ -115,14 +146,16 @@ function Header() {
                             <FontAwesomeIcon icon={faMagnifyingGlass}></FontAwesomeIcon>
                         </button>
                     </div>
-                </Tippy>
+                </HeadlessTippy>
 
                 <div className={cx('actions')}>
                     {currentUser ? (
                         <>
-                            <button className={cx('action-btn')}>
-                                <FontAwesomeIcon icon={faCloudUpload}></FontAwesomeIcon>
-                            </button>
+                            <Tippy delay={[0, 200]} content="Upload video" placement="bottom">
+                                <button className={cx('action-btn')}>
+                                    <FontAwesomeIcon icon={faCloudUpload}></FontAwesomeIcon>
+                                </button>
+                            </Tippy>
                         </>
                     ) : (
                         <>
@@ -132,7 +165,7 @@ function Header() {
                             </Button>
                         </>
                     )}
-                    <Menu items={MENU_ITEMS} onChange={handleMenuChange}>
+                    <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
                         {currentUser ? (
                             <img className={cx('user-avatar')} src={Img} alt="Nguyen Van A"></img>
                         ) : (
