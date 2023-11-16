@@ -22,7 +22,7 @@
 
     input:not(:placeholder-shown) ~ .search-btn {
         //Khi input có giá trị thì css của btn thay đổi
-        color: rgba(22, 24, 35, 0.75);
+        color: rgba(4, 4, 6, 0.75);
     }
 
     &::before {

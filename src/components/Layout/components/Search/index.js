@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { faCircleXmark, faSpinner, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import HeadlessTippy from '@tippyjs/react/headless';
@@ -10,7 +10,11 @@ import styles from './Search.module.scss';
 const cx = classNames.bind(styles);
 
 function Search() {
+    const [searchValue, setSearchValue] = useState('');
     const [searchResult, setSearchResult] = useState([]);
+    const [showResult, setShowResult] = useState(true);
+
+    const inputRef = useRef();
 
     useEffect(() => {
         setTimeout(() => {
@@ -18,10 +22,20 @@ function Search() {
         }, 0);
     }, []);
 
+    const handleClear = () => {
+        setSearchValue('');
+        setSearchResult([]);
+        inputRef.current.focus();
+    };
+
+    const handleHideResult = () => {
+        setShowResult(false);
+    };
+
     return (
         <HeadlessTippy
             interactive
-            visible={searchResult.length > 0}
+            visible={showResult && searchResult.length > 0}
             render={(attrs) => (
                 <div className={cx('search-result')} tabIndex="-1" {...attrs}>
                     <PopperWrapper>
@@ -33,13 +47,25 @@ function Search() {
                     </PopperWrapper>
                 </div>
             )}
+            onClickOutside={handleHideResult} //Khi bấm ra ngoài cái Tippy sẽ thực hiện hàm (ẩn ds tìm kiếm)
         >
             <div className={cx('search')}>
-                <input placeholder="Search accounts and videos" spellCheck={false} />
-                <button className={cx('clear')}>
-                    <FontAwesomeIcon icon={faCircleXmark}></FontAwesomeIcon>
-                </button>
-                <FontAwesomeIcon className={cx('loading')} icon={faSpinner}></FontAwesomeIcon>
+                <input
+                    ref={inputRef}
+                    value={searchValue}
+                    placeholder="Search accounts and videos"
+                    spellCheck={false}
+                    onChange={(e) => setSearchValue(e.target.value)}
+                    onFocus={() => setShowResult(true)} //Khi focus lại thì hiển ds tìm kiếm
+                />
+                {/* Khi có searchValue thì button clear mới hiển thị */}
+                {!!searchValue && (
+                    <button className={cx('clear')} onClick={handleClear}>
+                        <FontAwesomeIcon icon={faCircleXmark}></FontAwesomeIcon>
+                    </button>
+                )}
+
+                {/* <FontAwesomeIcon className={cx('loading')} icon={faSpinner}></FontAwesomeIcon> */}
                 <button className={cx('search-btn')}>
                     <FontAwesomeIcon icon={faMagnifyingGlass}></FontAwesomeIcon>
                 </button>
