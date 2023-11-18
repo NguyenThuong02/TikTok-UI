@@ -58,9 +58,17 @@
 .clear {
     cursor: pointer;
 }
-// .loading {
-//     display: none;
-// }
+.loading {
+    animation: spinner 0.9s linear infinite;
+}
+@keyframes spinner {
+    from {
+        transform: translateY(-50%) rotate(0);
+    }
+    to {
+        transform: translateY(-50%) rotate(360deg);
+    }
+}
 .search-btn {
     display: flex;
     align-items: center;
