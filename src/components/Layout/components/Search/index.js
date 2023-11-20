@@ -30,31 +30,31 @@ function Search() {
         setLoading(true);
 
         // //Cách gọi API bằng js thông thường
-        // fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(debounced)}&type=less`)
-        //     .then((res) => res.json())
-        //     .then((res) => {
-        //         setSearchResult(res.data);
-        //         setLoading(false);
-        //     })
-        //     .catch(() => {
-        //         setLoading(false);
-        //     });
-
-        // //Cách gọi API bằng Axios
-        request
-            .get('users/search', {
-                params: {
-                    q: debounced,
-                    type: 'less',
-                },
-            })
+        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(debounced)}&type=less`)
+            .then((res) => res.json())
             .then((res) => {
-                setSearchResult(res.data.data); //ví cái debounced nằm trong 2 data
+                setSearchResult(res.data);
                 setLoading(false);
             })
             .catch(() => {
                 setLoading(false);
             });
+
+        // //Cách gọi API bằng Axios
+        // request
+        //     .get('users/search', {
+        //         params: {
+        //             q: debounced,
+        //             type: 'less',
+        //         },
+        //     })
+        //     .then((res) => {
+        //         setSearchResult(res.data.data); //ví cái debounced nằm trong 2 data
+        //         setLoading(false);
+        //     })
+        //     .catch(() => {
+        //         setLoading(false);
+        //     });
     }, [debounced]);
 
     const handleClear = () => {
@@ -76,44 +76,47 @@ function Search() {
     };
 
     return (
-        <HeadlessTippy
-            interactive
-            visible={showResult && searchResult.length > 0}
-            render={(attrs) => (
-                <div className={cx('search-result')} tabIndex="-1" {...attrs}>
-                    <PopperWrapper>
-                        <h4 className={cx('search-title')}>Accounts</h4>
-                        {searchResult.map((result) => (
-                            <AccountItem key={result.id} data={result} />
-                        ))}
-                    </PopperWrapper>
-                </div>
-            )}
-            onClickOutside={handleHideResult} //Khi bấm ra ngoài cái Tippy sẽ thực hiện hàm (ẩn ds tìm kiếm)
-        >
-            <div className={cx('search')}>
-                <input
-                    ref={inputRef}
-                    value={searchValue}
-                    placeholder="Search accounts and videos"
-                    spellCheck={false}
-                    onChange={handleChange}
-                    onFocus={() => setShowResult(true)} //Khi focus lại thì hiển ds tìm kiếm
-                />
-                {/* Khi có searchValue thì button clear mới hiển thị */}
-                {!!searchValue && !loading && (
-                    <button className={cx('clear')} onClick={handleClear}>
-                        <FontAwesomeIcon icon={faCircleXmark}></FontAwesomeIcon>
-                    </button>
+        // Thêm <div> hoặc <span> bao quanh ở đây để tranh warning cái tippy search
+        <div>
+            <HeadlessTippy
+                interactive
+                visible={showResult && searchResult.length > 0}
+                render={(attrs) => (
+                    <div className={cx('search-result')} tabIndex="-1" {...attrs}>
+                        <PopperWrapper>
+                            <h4 className={cx('search-title')}>Accounts</h4>
+                            {searchResult.map((result) => (
+                                <AccountItem key={result.id} data={result} />
+                            ))}
+                        </PopperWrapper>
+                    </div>
                 )}
+                onClickOutside={handleHideResult} //Khi bấm ra ngoài cái Tippy sẽ thực hiện hàm (ẩn ds tìm kiếm)
+            >
+                <div className={cx('search')}>
+                    <input
+                        ref={inputRef}
+                        value={searchValue}
+                        placeholder="Search accounts and videos"
+                        spellCheck={false}
+                        onChange={handleChange}
+                        onFocus={() => setShowResult(true)} //Khi focus lại thì hiển ds tìm kiếm
+                    />
+                    {/* Khi có searchValue thì button clear mới hiển thị */}
+                    {!!searchValue && !loading && (
+                        <button className={cx('clear')} onClick={handleClear}>
+                            <FontAwesomeIcon icon={faCircleXmark}></FontAwesomeIcon>
+                        </button>
+                    )}
 
-                {loading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner}></FontAwesomeIcon>}
+                    {loading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner}></FontAwesomeIcon>}
 
-                <button className={cx('search-btn')} onMouseDown={(e) => e.preventDefault()}>
-                    <FontAwesomeIcon icon={faMagnifyingGlass}></FontAwesomeIcon>
-                </button>
-            </div>
-        </HeadlessTippy>
+                    <button className={cx('search-btn')} onMouseDown={(e) => e.preventDefault()}>
+                        <FontAwesomeIcon icon={faMagnifyingGlass}></FontAwesomeIcon>
+                    </button>
+                </div>
+            </HeadlessTippy>
+        </div>
     );
 }
 

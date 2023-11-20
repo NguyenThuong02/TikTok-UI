@@ -55,6 +55,66 @@ const MENU_ITEMS = [
                     code: 'fr',
                     title: 'France',
                 },
+                {
+                    type: 'language',
+                    code: 'en',
+                    title: 'English',
+                },
+                {
+                    type: 'language',
+                    code: 'vi',
+                    title: 'Tiếng Việt',
+                },
+                {
+                    type: 'language',
+                    code: 'ce',
+                    title: 'Chinese',
+                },
+                {
+                    type: 'language',
+                    code: 'fr',
+                    title: 'France',
+                },
+                {
+                    type: 'language',
+                    code: 'en',
+                    title: 'English',
+                },
+                {
+                    type: 'language',
+                    code: 'vi',
+                    title: 'Tiếng Việt',
+                },
+                {
+                    type: 'language',
+                    code: 'ce',
+                    title: 'Chinese',
+                },
+                {
+                    type: 'language',
+                    code: 'fr',
+                    title: 'France',
+                },
+                {
+                    type: 'language',
+                    code: 'en',
+                    title: 'English',
+                },
+                {
+                    type: 'language',
+                    code: 'vi',
+                    title: 'Tiếng Việt',
+                },
+                {
+                    type: 'language',
+                    code: 'ce',
+                    title: 'Chinese',
+                },
+                {
+                    type: 'language',
+                    code: 'fr',
+                    title: 'France',
+                },
             ],
         },
     },
