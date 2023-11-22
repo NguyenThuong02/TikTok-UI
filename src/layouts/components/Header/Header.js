@@ -22,7 +22,7 @@ import config from '~/config';
 import Button from '~/components/Button/Button';
 import styles from './Header.module.scss';
 import images from '~/assets/images';
-import Menu from '~/components/Popper/Menu';
+import Menu from '~/components/Popper/Menu/Menu';
 import Image from '~/components/Image/Image';
 import Search from '../Search/Search';
 
