@@ -4,9 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import HeadlessTippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
 
-import request from '~/utils/request';
+import * as searchService from '~/services/searchServices';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
-import AccountItem from '~/components/AccountItem';
+import AccountItem from '~/components/AccountItem/AcountItem';
 import { useDebounce } from '~/hooks';
 import styles from './Search.module.scss';
 
@@ -27,34 +27,29 @@ function Search() {
             setSearchResult([]);
             return;
         }
-        setLoading(true);
+        // setLoading(true); //Nếu ko dùng asyn await thì bật cái này lên
 
         // //Cách gọi API bằng js thông thường
-        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(debounced)}&type=less`)
-            .then((res) => res.json())
-            .then((res) => {
-                setSearchResult(res.data);
-                setLoading(false);
-            })
-            .catch(() => {
-                setLoading(false);
-            });
-
-        // //Cách gọi API bằng Axios
-        // request
-        //     .get('users/search', {
-        //         params: {
-        //             q: debounced,
-        //             type: 'less',
-        //         },
-        //     })
+        // fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(debounced)}&type=less`)
+        //     .then((res) => res.json())
         //     .then((res) => {
-        //         setSearchResult(res.data.data); //ví cái debounced nằm trong 2 data
+        //         setSearchResult(res.data);
         //         setLoading(false);
         //     })
         //     .catch(() => {
         //         setLoading(false);
         //     });
+
+        // //Cách gọi API bằng Axios
+        const fetchApi = async () => {
+            setLoading(true);
+
+            const result = await searchService.search(debounced);
+            setSearchResult(result);
+
+            setLoading(false);
+        };
+        fetchApi();
     }, [debounced]);
 
     const handleClear = () => {
