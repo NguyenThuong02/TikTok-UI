@@ -11,6 +11,7 @@ import {
     faUserPlus,
     faUsers,
 } from '@fortawesome/free-solid-svg-icons';
+import SuggestedAccounts from '~/components/SuggestedAccounts/SuggestedAccounts';
 
 const cx = classNames.bind(styles);
 
@@ -37,6 +38,9 @@ function Sidebar() {
                     activeIcon={<FontAwesomeIcon className={cx('iconPublic')} icon={faCameraRetro}></FontAwesomeIcon>}
                 />
             </Menu>
+
+            <SuggestedAccounts label="Suggested accounts" />
+            <SuggestedAccounts label="Following accounts" />
         </aside>
     );
 }
